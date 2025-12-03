@@ -1,0 +1,9 @@
+ pandas
+ plotly_express
+ streamlit
+
+ vehicles_env\Scripts\activate.bat
+
+python -m streamlit run us_vehicles_data.py
+
+   
