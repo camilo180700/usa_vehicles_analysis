@@ -107,3 +107,4 @@ if st.checkbox("Mostrar boxplot de precios por tipo de vehículo"):
 if st.checkbox("Mostrar histograma de años del modelo"):
     fig3 = px.histogram(filtered, x="model_year", title="Distribución por año del modelo")
     st.plotly_chart(fig3, use_container_width=True)
+# 
