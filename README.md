@@ -1,17 +1,19 @@
 # Interactive Analysis of Vehicles for Sale (USA)
 
-## 📌 Descripción del proyecto
-Esta aplicación web, desarrollada con **Streamlit**, permite analizar de forma visual e interactiva un conjunto de datos real de anuncios de vehículos en venta en Estados Unidos.  
-El objetivo es ofrecer al usuario herramientas intuitivas para explorar precios, kilometrajes, años de modelo y tipos de vehículos, todo a través de gráficos dinámicos y filtros personalizables.
+## 📌 Project Description
+This web application, built with **Streamlit**, allows users to visually and interactively analyze a real dataset of vehicle listings for sale in the United States.  
+The main goal is to provide intuitive tools to explore prices, mileage, model years, and vehicle types through dynamic charts and customizable filters.
 
-Además, la aplicación integra estadísticas clave y visualizaciones que permiten entender mejor el comportamiento del mercado automotriz.
+In addition, the app includes key statistics and visualizations that help users better understand trends in the automotive market.
 
-## 🚗 ¿Qué puedes hacer en la aplicación?
+---
 
-### 🔍 Filtros interactivos
-- Seleccionar un **rango de años** del modelo.
-- Establecer un **rango de precios** según presupuesto.
-- Elegir un **tipo de vehículo** (SUV, sedan, pickup, etc.).
+## 🚗 What can you do in the app?
+
+### 🔍 Interactive Filters
+- Select a **model year range**.
+- Set a **price range** based on your budget.
+- Choose a **vehicle type** (SUV, sedan, pickup, etc.).
 
 ### 📊 Automatic Statistics
 Based on the selected filters, the app dynamically calculates:
@@ -26,5 +28,22 @@ Based on the selected filters, the app dynamically calculates:
 
 ---
 
-#
+## 📁 Dataset Context
+The dataset contains real vehicle listings published on online car marketplaces in the United States.  
+It includes columns such as:
+- `price`
+- `model_year`
+- `odometer`
+- `type`
+- `fuel`
+- `transmission`
 
+This information allows for useful exploratory analysis for buyers, sellers, and automotive market enthusiasts.
+
+---
+
+## 🛠 Technologies Used
+- Python  
+- Pandas  
+- Plotly  
+- Streamlit  
