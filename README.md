@@ -1,44 +1,32 @@
-# Análisis Interactivo de Vehículos en Venta (USA)
+# Interactive Analysis of Vehicles for Sale (USA)
 
-## 📌 Descripción del proyecto
-Esta aplicación web, desarrollada con **Streamlit**, permite analizar de forma visual e interactiva un conjunto de datos real de anuncios de vehículos en venta en Estados Unidos.  
-El objetivo es ofrecer al usuario herramientas intuitivas para explorar precios, kilometrajes, años de modelo y tipos de vehículos, todo a través de gráficos dinámicos y filtros personalizables.
+## 📌 Project Description
+This web application, built with **Streamlit**, allows users to visually and interactively analyze a real dataset of vehicle listings for sale in the United States.  
+The main goal is to provide intuitive tools to explore prices, mileage, model years, and vehicle types through dynamic charts and customizable filters.
 
-Además, la aplicación integra estadísticas clave y visualizaciones que permiten entender mejor el comportamiento del mercado automotriz.
+In addition, the app includes key statistics and visualizations that help users better understand trends in the automotive market.
 
-## 🚗 ¿Qué puedes hacer en la aplicación?
+---
 
-### 🔍 Filtros interactivos
-- Seleccionar un **rango de años** del modelo.
-- Establecer un **rango de precios** según presupuesto.
-- Elegir un **tipo de vehículo** (SUV, sedan, pickup, etc.).
+## 🚗 What can you do in the app?
 
-### 📊 Estadísticas automáticas
-La app calcula dinámicamente según los filtros:
-- Total de vehículos disponibles.
-- Precio **promedio**, **mínimo** y **máximo**.
-- Kilometraje promedio.
+### 🔍 Interactive Filters
+- Select a **model year range**.
+- Set a **price range** based on your budget.
+- Choose a **vehicle type** (SUV, sedan, pickup, etc.).
 
-### 📈 Visualizaciones disponibles
-- Histograma del kilometraje.
-- Histograma del año del modelo.
-- Boxplot de precios por tipo de vehículo.
+### 📊 Automatic Statistics
+Based on the selected filters, the app dynamically calculates:
+- Total number of available vehicles.
+- **Average**, **minimum**, and **maximum** prices.
+- Average mileage.
 
-### 📁 Contexto del dataset
-El dataset contiene información real de anuncios publicados en plataformas de venta de vehículos en Estados Unidos.  
-Incluye columnas como:
-- `price`
-- `model_year`
-- `odometer`
-- `type`
-- `fuel`
-- `transmission`
+### 📈 Available Visualizations
+- Mileage histogram.
+- Model year histogram.
+- Price boxplot by vehicle type.
 
-Esto permite realizar análisis exploratorios útiles para compradores, vendedores o entusiastas del mercado automotriz.
+---
 
-## 🛠 Tecnologías utilizadas
-- Python  
-- Pandas  
-- Plotly  
-- Streamlit  
+#
 

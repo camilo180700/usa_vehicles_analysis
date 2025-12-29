@@ -3,108 +3,135 @@ import plotly.express as px
 import streamlit as st
 
 # ---------------------------------------------------------
-# TÍTULO Y DESCRIPCIÓN GENERAL
+# TITLE AND GENERAL DESCRIPTION
 # ---------------------------------------------------------
-st.title("🚗 Análisis Interactivo de Vehículos en Venta (USA)")
+st.title("🚗 Interactive Analysis of Vehicles for Sale (USA)")
 st.write("""
-Esta aplicación permite explorar un conjunto de datos reales sobre vehículos en venta en Estados Unidos.  
-Puedes filtrar por año, precio y tipo de vehículo, y visualizar estadísticas y gráficos interactivos.
+This application allows users to explore a real dataset of vehicles for sale in the United States.  
+You can filter the data by model year, price range, and vehicle type, and visualize key statistics 
+and interactive charts.
 """)
 
 # ---------------------------------------------------------
-# CARGA DEL DATASET
+# LOAD DATASET
 # ---------------------------------------------------------
 try:
     car_data = pd.read_csv("vehicles_us.csv")
 
-    # Manejo de valores nulos (recomendación del revisor)
+    # Handle missing values (recommended for data quality)
     car_data = car_data.dropna(subset=["price", "model_year", "odometer"])
 
-    st.success("Los datos se han cargado correctamente.")
+    st.success("Data loaded successfully.")
 
-except Exception as e:
-    st.error("Error al cargar el archivo.")
+except Exception:
+    st.error("Error loading the dataset. Please check the file path.")
     st.stop()
 
 # ---------------------------------------------------------
-# DESCRIPCIÓN DEL DATASET
+# DATASET DESCRIPTION
 # ---------------------------------------------------------
-st.subheader("📁 Descripción del dataset")
+st.subheader("📁 Dataset Overview")
 st.write("""
-El dataset contiene información de vehículos publicados para la venta.  
-Incluye atributos como precio, tipo, kilometraje, año del modelo y otros datos relevantes del anuncio.
+The dataset contains information about vehicles listed for sale.  
+It includes attributes such as price, vehicle type, mileage, model year,
+and other relevant details from the listings.
 """)
 
 # ---------------------------------------------------------
-# FILTROS INTERACTIVOS
+# INTERACTIVE FILTERS
 # ---------------------------------------------------------
-st.subheader("🔍 Filtros de búsqueda")
+st.subheader("🔍 Search Filters")
 
 col1, col2 = st.columns(2)
 
 with col1:
     year_min = int(car_data["model_year"].min())
     year_max = int(car_data["model_year"].max())
-    year_range = st.slider("Selecciona rango de años", year_min, year_max, (year_min, year_max))
+    year_range = st.slider(
+        "Select model year range",
+        year_min,
+        year_max,
+        (year_min, year_max)
+    )
 
 with col2:
     price_min = int(car_data["price"].min())
     price_max = int(car_data["price"].max())
-    price_range = st.slider("Selecciona rango de precios ($)", price_min, price_max, (price_min, price_max))
+    price_range = st.slider(
+        "Select price range ($)",
+        price_min,
+        price_max,
+        (price_min, price_max)
+    )
 
-# Tipo de vehículo
-vehicle_types = ["Todos"] + sorted(car_data["type"].dropna().unique().tolist())
-selected_type = st.selectbox("Tipo de vehículo", vehicle_types)
+# Vehicle type filter
+vehicle_types = ["All"] + sorted(car_data["type"].dropna().unique().tolist())
+selected_type = st.selectbox("Vehicle type", vehicle_types)
 
 # ---------------------------------------------------------
-# APLICACIÓN DE FILTROS
+# APPLY FILTERS
 # ---------------------------------------------------------
-filtered = car_data[
+filtered_data = car_data[
     (car_data["model_year"].between(year_range[0], year_range[1])) &
     (car_data["price"].between(price_range[0], price_range[1]))
 ]
 
-if selected_type != "Todos":
-    filtered = filtered[filtered["type"] == selected_type]
+if selected_type != "All":
+    filtered_data = filtered_data[filtered_data["type"] == selected_type]
 
 # ---------------------------------------------------------
-# ESTADÍSTICAS PRINCIPALES
+# KEY STATISTICS
 # ---------------------------------------------------------
-st.subheader("📊 Estadísticas generales")
+st.subheader("📊 Key Statistics")
 
-st.write(f"**Total de vehículos encontrados:** {len(filtered)}")
+st.write(f"**Total vehicles found:** {len(filtered_data)}")
 
-if len(filtered) > 0:
+if len(filtered_data) > 0:
     colA, colB, colC = st.columns(3)
 
     with colA:
-        st.metric("Precio promedio", f"${int(filtered['price'].mean()):,}")
-        st.metric("Precio mínimo", f"${int(filtered['price'].min()):,}")
+        st.metric("Average price", f"${int(filtered_data['price'].mean()):,}")
+        st.metric("Minimum price", f"${int(filtered_data['price'].min()):,}")
 
     with colB:
-        st.metric("Precio máximo", f"${int(filtered['price'].max()):,}")
-        st.metric("Kilometraje promedio", f"{int(filtered['odometer'].mean()):,} mi")
+        st.metric("Maximum price", f"${int(filtered_data['price'].max()):,}")
+        st.metric("Average mileage", f"{int(filtered_data['odometer'].mean()):,} mi")
 
     with colC:
-        st.metric("Año más común", int(filtered["model_year"].mode()[0]))
+        st.metric(
+            "Most common model year",
+            int(filtered_data["model_year"].mode()[0])
+        )
 
 # ---------------------------------------------------------
-# GRÁFICOS
+# VISUALIZATIONS
 # ---------------------------------------------------------
-st.subheader("📈 Visualizaciones")
+st.subheader("📈 Visualizations")
 
-# Histograma de kilometraje
-if st.button("Mostrar histograma de kilometraje"):
-    fig = px.histogram(filtered, x="odometer", title="Distribución de kilometraje")
+# Mileage histogram
+if st.button("Show mileage distribution"):
+    fig = px.histogram(
+        filtered_data,
+        x="odometer",
+        title="Mileage Distribution"
+    )
     st.plotly_chart(fig, use_container_width=True)
 
-# Boxplot por tipo
-if st.checkbox("Mostrar boxplot de precios por tipo de vehículo"):
-    fig2 = px.box(filtered, x="type", y="price", title="Precio por tipo de vehículo")
+# Price by vehicle type
+if st.checkbox("Show price distribution by vehicle type"):
+    fig2 = px.box(
+        filtered_data,
+        x="type",
+        y="price",
+        title="Price by Vehicle Type"
+    )
     st.plotly_chart(fig2, use_container_width=True)
 
-# Histograma de años
-if st.checkbox("Mostrar histograma de años del modelo"):
-    fig3 = px.histogram(filtered, x="model_year", title="Distribución por año del modelo")
+# Model year histogram
+if st.checkbox("Show model year distribution"):
+    fig3 = px.histogram(
+        filtered_data,
+        x="model_year",
+        title="Model Year Distribution"
+    )
     st.plotly_chart(fig3, use_container_width=True)
-# 
